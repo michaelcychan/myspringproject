@@ -9,6 +9,11 @@ At terminal, at root directory run:
 ```
 Note that `./mvnw` file needs the execution privilege.
 
+If database password is encrypted with Jasypt, please use the following:
+```
+ ./mvnw spring-boot:run -Dspring-boot.run.arguments=--jasypt.encryptor.password=[SECRET KEY]
+```
+
 ## Endpoints
 
 ### /hello
@@ -25,6 +30,11 @@ returns a string representing an SQL query:
 
 ### /hello/multiply-by-two/{input}
 returns a string of calculation if input is integer, returns an error message and status code 400 if not.
+
+## Create an encrypted password
+
+Guide: https://www.geeksforgeeks.org/how-to-encrypt-passwords-in-a-spring-boot-project-using-jasypt/  
+1. Go the here: https://www.devglan.com/online-tools/jasypt-online-encryption-decryption  
 
 
 ## PostgreSQL server:
