@@ -1,35 +1,51 @@
 package com.example.mySpringProject.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import org.hibernate.annotations.JoinFormula;
 
 @Entity
 @Table(name="prime_minister")
 public class PrimeMinisterModel {
+    @Id
+    @Column(name="id", nullable = false)
     private int id;
+    @Column(name="name")
     private String name;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="appointed_by")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private MonarchModel mon;
+
+    @Column (name="year_of_birth")
     private int yearOfBirth;
+
+    @Column (name="year_of_death")
     private Integer yearOfDeath;
+
+    @Column (name="year_start_office")
     private int yearStartOffice;
+
+    @Column (name="year_out_office")
     private Integer yearOutOffice;
+
+    @Column(name="party")
     private String party;
 
     public PrimeMinisterModel() {
     }
 
-    public PrimeMinisterModel(int id, String name, int yearOfBirth, Integer yearOfDeath, int yearStartOffice, Integer yearOutOffice, String party) {
+    public PrimeMinisterModel(int id, String name, MonarchModel mon, int yearOfBirth, Integer yearOfDeath, int yearStartOffice, Integer yearOutOffice, String party) {
         this.id = id;
         this.name = name;
+        this.mon = mon;
         this.yearOfBirth = yearOfBirth;
         this.yearOfDeath = yearOfDeath;
         this.yearStartOffice = yearStartOffice;
         this.yearOutOffice = yearOutOffice;
     }
 
-    @Id
-    @Column(name="id", nullable = false)
     public int getId() {
         return id;
     }
@@ -37,7 +53,7 @@ public class PrimeMinisterModel {
         this.id = newID;
     }
 
-    @Column(name="name")
+
     public String getName() {
         return name;
     }
@@ -45,7 +61,13 @@ public class PrimeMinisterModel {
         this.name = newName;
     }
 
-    @Column (name="year_of_birth")
+    public MonarchModel getMon(){
+        return mon;
+    }
+    public void setMon(MonarchModel mon){
+        this.mon = mon;
+    }
+
     public int getYearOfBirth() {
         return yearOfBirth;
     }
@@ -53,7 +75,6 @@ public class PrimeMinisterModel {
         this.yearOfBirth = newYear;
     }
 
-    @Column (name="year_of_death")
     public Integer getYearOfDeath() {
         return yearOfDeath;
     }
@@ -61,7 +82,6 @@ public class PrimeMinisterModel {
         this.yearOfDeath = newYoD;
     }
 
-    @Column (name="year_start_office")
     public int getYearStartOffice() {
         return yearStartOffice;
     }
@@ -69,7 +89,7 @@ public class PrimeMinisterModel {
         this.yearStartOffice = newYSO;
     }
 
-    @Column (name="year_out_office")
+
     public Integer getYearOutOffice() {
         return yearOutOffice;
     }
@@ -77,7 +97,7 @@ public class PrimeMinisterModel {
         this.yearOutOffice = newYOO;
     }
 
-    @Column(name="party")
+
     public String getParty(){
         return party;
     }

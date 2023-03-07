@@ -2,15 +2,30 @@ package com.example.mySpringProject.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="monarch")
 public class MonarchModel{
 
+    @Id
+    @Column(name="name")
     private String name;
+
+    @Column(name="year_of_birth")
     private int yearOfBirth;
+
+    @Column(name="year_of_death", nullable=true)
     private Integer yearOfDeath;
+
+    @Column(name="year_of_reign_start")
     private int yearOfReignStart;
+
+    @Column(name="year_of_reign_end", nullable=true)
     private Integer yearOfReignEnd;
+
+    @OneToMany(mappedBy = "mon", fetch = FetchType.EAGER)
+    private List<PrimeMinisterModel> primeMinisterModels;
 
     public MonarchModel() {
     }
@@ -23,8 +38,7 @@ public class MonarchModel{
         this.yearOfReignEnd = yearOfReignEnd;
     }
 
-    @Id
-    @Column(name="name")
+
     public String getName() {
         return name;
     }
@@ -32,7 +46,7 @@ public class MonarchModel{
         this.name = newName;
     }
 
-    @Column(name="year_of_birth")
+
     public Integer getYearOfBirth() {
         return yearOfBirth;
     }
@@ -40,7 +54,7 @@ public class MonarchModel{
         this.yearOfBirth = newYoB;
     }
 
-    @Column(name="year_of_death", nullable=true)
+
     public Integer getYearOfDeath() {
         return yearOfDeath;
     }
@@ -48,7 +62,6 @@ public class MonarchModel{
         this.yearOfDeath = newYoD;
     }
 
-    @Column(name="year_of_reign_start", nullable=true)
     public Integer getYearOfReignStart() {
         return yearOfReignStart;
     }
@@ -56,7 +69,6 @@ public class MonarchModel{
         this.yearOfReignStart = newYoRS;
     }
 
-    @Column(name="year_of_reign_end")
     public Integer getYearOfReignEnd() {
         return  yearOfReignEnd;
     }

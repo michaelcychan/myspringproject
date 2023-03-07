@@ -63,6 +63,15 @@ public class KingdomController {
         return ResponseEntity.status(200).body(allPM);
     }
 
+    @GetMapping("/find-pm-by-monarch/{monarch}")
+    public ResponseEntity<List<PrimeMinisterModel>> getPMByMonarch(@PathVariable(name = "monarch") String monarch) {
+        List<PrimeMinisterModel> pms = pmRepository.findPMByMonarch(monarch);
+        if (pms == null) {
+            return ResponseEntity.status(404).body(null);
+        }
+        return ResponseEntity.status(200).body(pms);
+    }
+
     @GetMapping("/find-pm-by-year/{year}")
     public ResponseEntity<List<PrimeMinisterModel>> getPMByYear(@PathVariable(name = "year") String targetYear) {
         try {
@@ -71,11 +80,18 @@ public class KingdomController {
             if (year < 1951 || year > c.get(Calendar.YEAR)) {
                 throw new RuntimeException("year out of range");
             }
+            System.out.print("the year is: " + year + "\n");
             List<PrimeMinisterModel> targetPMs =  pmRepository.findPMByYear(year);
             return ResponseEntity.status(HttpStatus.OK).body(targetPMs);
         } catch(Exception  e) {
             return ResponseEntity.status(BAD_REQUEST).body(null);
         }
+    }
+
+    @GetMapping("/latest-pm")
+    public ResponseEntity<PrimeMinisterModel> getLatestPM() {
+        PrimeMinisterModel lastPM = pmRepository.getLatestPM();
+        return ResponseEntity.status(200).body(lastPM);
     }
 
 }
