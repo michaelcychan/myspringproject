@@ -16,20 +16,35 @@ If database password is encrypted with Jasypt, please use the following:
 
 ## Endpoints
 
-### /hello
+### /kingdom
+The queries under `/kingdom` are using a database containing two tables. You can find the database data under `/db/migration`.  
+
+- `/find-all-monarch`
+- `/monarch-of-year/{year}`  
+-- will return error if year is before 1951 or after this year
+- `/get-monarch/{name}`
+- `/find-all-pm`  
+-- returns all pm from Churchill
+- `/find-pm-by-monarch/{monarch}`
+-- find the pms appointed by the named monarch
+- `/find-pm-by-year/{year}`  
+  -- will return error if year is before 1951 or after this year
+- `/latest-pm`  
+-- will return the latest pm
+
+### /hello 
+(All under the subdomain hello are for testings)  
 returns a JSON format response including a counter (increment after each visit)
 
-### /hello/oh-no
-returns a JSON format response including the above counter (DECREMENTED after each visit)
-
-### /hello/make-query?yearOfBirth={year}&name={name}
-returns a string representing an SQL query:
+- `/oh-no`  
+---returns a JSON format response including the above counter (DECREMENTED after each visit)
+- `/hello/make-query?yearOfBirth={year}&name={name}`  
+--returns a string representing an SQL query:
 ```
 "SELECT * FROM people WHERE year_of_birth = {year} AND name = {name}";
 ```
-
-### /hello/multiply-by-two/{input}
-returns a string of calculation if input is integer, returns an error message and status code 400 if not.
+- `/hello/multiply-by-two/{input}`  
+-- returns a string of calculation if input is integer, returns an error message and status code 400 if not.
 
 ## Create an encrypted password
 
